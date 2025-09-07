@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+import { Link } from '@mui/material';
 
 export default function Home() {
   return (
@@ -44,6 +45,14 @@ export default function Home() {
           >
             Read our docs
           </a>
+          <Link
+            href="https://github.com/DmitriyRadovnya/rest-client-app"
+            target="_blank"
+            variant="button"
+            underline="hover"
+          >
+            Our project
+          </Link>
         </div>
       </main>
       <footer className={styles.footer}>
