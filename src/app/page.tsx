@@ -1,13 +1,13 @@
+import React from 'react';
 import { Container } from '@mui/material';
 
-const Home = () => {
+const Page = () => {
   return (
     <>
       <Container maxWidth="xl" sx={{ border: '1px solid green' }}>
-        content here
+        main content here
       </Container>
     </>
   );
 };
-
-export default Home;
+export default Page;

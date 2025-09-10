@@ -3,7 +3,7 @@ import { Roboto } from 'next/font/google';
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { CssBaseline } from '@mui/material';
-import MuiProvider from '@/shared/providers/muiProvider';
+import MuiProvider from '@/lib/providers/muiProvider';
 import './globals.css';
 
 const roboto = Roboto({
