@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+'use client';
+import React, { ChangeEvent, useState } from 'react';
 import {
   Box,
   FormControl,
@@ -6,11 +7,15 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  TextField,
   Typography,
 } from '@mui/material';
+import { METHOD_META, METHODS } from '@/lib/static/http/methods';
+
+type MethodType = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
 interface UserRequest {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  method: MethodType;
   url: string;
   headers: {
     [key: string]: string;
@@ -27,15 +32,22 @@ const initialState: UserRequest = {
 
 const RestClientContainer = () => {
   const [request, setRequest] = useState<UserRequest>(initialState);
-  const handleChange = (event: SelectChangeEvent) => {
-    const { name, value } = event.target;
+  const selectHandleChange = (e: SelectChangeEvent<MethodType>) => {
+    const { value } = e.target;
+    setRequest((prevState) => ({ ...prevState, method: value }));
+  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setRequest((prevState) => ({ ...prevState, [name]: value }));
   };
   return (
     <Box display="flex" flexDirection="column" gap={2}>
-      <Typography>show url here</Typography>
-      <Box>
-        <FormControl fullWidth>
+      <Typography>
+        {request.url ? request.url : 'Enter URL to perform a request'}
+      </Typography>
+      <Typography>current {request.method}</Typography>
+      <Box component="form" display="flex" gap={2}>
+        <FormControl>
           <InputLabel id="method-select-label">Method</InputLabel>
           <Select
             labelId="method-select-label"
@@ -43,12 +55,23 @@ const RestClientContainer = () => {
             value={request.method}
             name="method"
             label="Method"
-            onChange={handleChange}
+            onChange={selectHandleChange}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            {METHODS.map((item) => (
+              <MenuItem key={item} value={item}>
+                {METHOD_META[item].label}
+              </MenuItem>
+            ))}
           </Select>
+        </FormControl>
+        <FormControl>
+          <TextField
+            id="url"
+            label="Enter URL"
+            value={request.url}
+            name="url"
+            onChange={handleChange}
+          />
         </FormControl>
       </Box>
     </Box>
