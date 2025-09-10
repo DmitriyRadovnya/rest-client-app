@@ -1,10 +1,10 @@
 'use client';
 
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
-import theme from '@/shared/config/mui/theme';
+import theme from '@/app/theme';
 import { FC, PropsWithChildren } from 'react';
-import { Header } from '@/widgets/header';
-import { Footer } from '@/widgets/footer';
+import Header from '@/lib/components/header/Header';
+import Footer from '@/lib/components/footer/Footer';
 
 const MuiProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
