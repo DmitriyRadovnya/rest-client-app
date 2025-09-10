@@ -15,7 +15,6 @@ const MuiProvider: FC<PropsWithChildren> = ({ children }) => {
         maxWidth="xl"
         disableGutters
         sx={{
-          border: '1px solid red',
           flex: 1,
           display: 'flex',
           flexDirection: 'column',

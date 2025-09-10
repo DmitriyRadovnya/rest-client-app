@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 const Page = () => {
   return (
     <>
-      <Container maxWidth="xl" sx={{ border: '1px solid green' }}>
+      <Container maxWidth="xl">
         main content here
+        <Box sx={{ height: '1500px' }}>example very long content</Box>
       </Container>
     </>
   );
