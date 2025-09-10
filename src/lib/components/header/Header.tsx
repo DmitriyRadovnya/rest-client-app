@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
-import { SignOutButton } from '@/features/auth/sign-out';
 
 const Header = () => {
   return (
@@ -10,9 +9,7 @@ const Header = () => {
           <Typography variant="h6" component="a">
             REST Client
           </Typography>
-          <Box ml="auto">
-            <SignOutButton />
-          </Box>
+          <Box ml="auto">sign out button here</Box>
         </Toolbar>
       </Container>
     </AppBar>
