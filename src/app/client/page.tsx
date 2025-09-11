@@ -5,7 +5,7 @@ import { Container } from '@mui/material';
 const Page = () => {
   return (
     <>
-      <Container maxWidth="xl" sx={{ flex: 1, border: '1px solid red' }}>
+      <Container maxWidth="xl" sx={{ flex: 1 }}>
         <RestClientContainer />
       </Container>
     </>
