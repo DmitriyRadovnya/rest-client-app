@@ -1,16 +1,10 @@
-import React, { FC, SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import HeadersTab from '@/lib/components/rest-client/request/RequestTabs/HeadersTab/HeadersTab';
-import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 
-interface RequestTabsProps {
-  request: UserRequest;
-}
-
-const RequestTabs: FC<RequestTabsProps> = ({ request }) => {
+const RequestTabs = () => {
   const [value, setValue] = useState('1');
-  const { headers } = request;
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -24,7 +18,7 @@ const RequestTabs: FC<RequestTabsProps> = ({ request }) => {
         </TabList>
       </Box>
       <TabPanel value="1">
-        <HeadersTab headers={headers} />
+        <HeadersTab />
       </TabPanel>
       <TabPanel value="2">Body</TabPanel>
       <TabPanel value="3">Code</TabPanel>

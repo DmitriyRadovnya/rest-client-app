@@ -1,5 +1,5 @@
 declare type HeaderRow = {
-  name: string;
+  key: string;
   value: string;
   enabled: boolean;
 };
