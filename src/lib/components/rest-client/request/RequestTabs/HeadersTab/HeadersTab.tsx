@@ -6,6 +6,7 @@ import {
   IconButton,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
@@ -46,6 +47,7 @@ const HeadersTab = () => {
                 <TextField {...field} size="small" label="Key" />
               )}
             />
+            <Typography>:</Typography>
             <Controller
               name={`headers.${index}.value`}
               control={control}
