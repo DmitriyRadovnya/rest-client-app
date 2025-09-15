@@ -5,4 +5,5 @@ declare interface UserRequest {
   url: string;
   headers: HeaderRow[];
   body: string;
+  bodyMode: 'json' | 'text';
 }

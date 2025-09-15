@@ -10,6 +10,7 @@ const initialState: UserRequest = {
   url: '',
   headers: [],
   body: '',
+  bodyMode: 'json',
 };
 
 const RestClientContainer = () => {
