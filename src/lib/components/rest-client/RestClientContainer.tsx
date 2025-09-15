@@ -7,7 +7,7 @@ import RequestForm from '@/lib/components/rest-client/request/request-form/Reque
 
 const initialState: UserRequest = {
   method: 'GET',
-  url: '',
+  url: 'https://',
   headers: [],
   body: '',
   bodyMode: 'json',
