@@ -9,7 +9,7 @@ import {
   TextField,
 } from '@mui/material';
 import { METHOD_META, METHODS } from '@/lib/static/http/methods';
-import RequestTabs from '@/lib/components/rest-client/request/RequestTabs/RequestTabs';
+import RequestTabs from '@/lib/components/rest-client/request/request-tabs/RequestTabs';
 import SendIcon from '@mui/icons-material/Send';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';

@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import HeadersTab from '@/lib/components/rest-client/request/RequestTabs/HeadersTab/HeadersTab';
+import HeadersTab from '@/lib/components/rest-client/request/request-tabs/headers-tab/HeadersTab';
 
 const RequestTabs = () => {
   const [value, setValue] = useState('1');

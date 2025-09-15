@@ -3,7 +3,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import RequestFormProvider from '@/lib/providers/RequestFormProvider';
-import RequestForm from '@/lib/components/rest-client/request/RequestForm/RequestForm';
+import RequestForm from '@/lib/components/rest-client/request/request-form/RequestForm';
 
 const initialState: UserRequest = {
   method: 'GET',
