@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   TextField,
 } from '@mui/material';
 import { METHOD_META, METHODS } from '@/lib/static/http/methods';
-import RequestTabs from '@/lib/components/rest-client/request/RequestTabs/RequestTabs';
+import RequestTabs from '@/lib/components/rest-client/request/request-tabs/RequestTabs';
 import SendIcon from '@mui/icons-material/Send';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';
 import { MethodType } from '@/lib/static/http/methods.types';
+import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import { convertHeaders } from '@/lib/utils/convertHeaders';
+import { resolveUrl } from '@/lib/utils/resolveUrl';
 
 const RequestForm = () => {
   const { control, handleSubmit } = useFormContext<UserRequest>();
+  const [open, setOpen] = useState(false);
   const methodHasBody = (m: MethodType) => m !== 'GET';
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const onSubmit: SubmitHandler<UserRequest> = async (req) => {
     const headers = convertHeaders(req.headers);
@@ -38,20 +52,16 @@ const RequestForm = () => {
       }
     }
 
-    const res = await fetch(req.url, {
-      method: req.method,
-      headers,
-      body,
-    });
-
-    const ct = res.headers.get('content-type') ?? '';
-    const data = ct.includes('application/json')
-      ? await res.json()
-      : await res.text();
-
-    console.log('status', res.status);
-    console.log('headers', Object.fromEntries(res.headers.entries()));
-    console.log('body', data);
+    try {
+      const res = await fetch(req.url, {
+        method: req.method,
+        headers,
+        body,
+      });
+    } catch (e) {
+      setOpen(true);
+      console.error(e);
+    }
   };
 
   return (
@@ -62,7 +72,13 @@ const RequestForm = () => {
       gap={2}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Box display="flex" alignItems="center" gap={2}>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="message should be here"
+      />
+      <Box display="flex" alignItems="start" gap={2}>
         <FormControl>
           <InputLabel id="method-select-label">Method</InputLabel>
           <Controller
@@ -84,13 +100,25 @@ const RequestForm = () => {
               </Select>
             )}
           />
+          <FormHelperText>&nbsp;</FormHelperText>
         </FormControl>
         <FormControl sx={{ flex: 1 }}>
           <Controller
             name="url"
             control={control}
-            render={({ field }) => (
-              <TextField {...field} id="url" label="Enter URL" size="small" />
+            rules={{
+              required: 'Enter valid URL',
+              validate: (arg) => !!resolveUrl(arg) || 'Enter valid URL',
+            }}
+            render={({ field, fieldState }) => (
+              <TextField
+                {...field}
+                id="url"
+                label="Enter URL"
+                size="small"
+                error={!!fieldState.error}
+                helperText={fieldState.error?.message}
+              />
             )}
           />
         </FormControl>

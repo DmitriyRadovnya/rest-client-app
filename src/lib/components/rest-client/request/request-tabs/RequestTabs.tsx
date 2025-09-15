@@ -1,7 +1,8 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Box, Tab } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import HeadersTab from '@/lib/components/rest-client/request/RequestTabs/HeadersTab/HeadersTab';
+import HeadersTab from '@/lib/components/rest-client/request/request-tabs/headers-tab/HeadersTab';
+import BodyTab from '@/lib/components/rest-client/request/request-tabs/body-tab/BodyTab';
 
 const RequestTabs = () => {
   const [value, setValue] = useState('1');
@@ -20,7 +21,9 @@ const RequestTabs = () => {
       <TabPanel value="1">
         <HeadersTab />
       </TabPanel>
-      <TabPanel value="2">Body</TabPanel>
+      <TabPanel value="2">
+        <BodyTab />
+      </TabPanel>
       <TabPanel value="3">Code</TabPanel>
     </TabContext>
   );
