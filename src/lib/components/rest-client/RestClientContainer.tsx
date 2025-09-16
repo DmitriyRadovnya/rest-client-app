@@ -11,6 +11,8 @@ const initialState: UserRequest = {
   headers: [],
   body: '',
   bodyMode: 'json',
+  codeLang: 'curl',
+  snippet: '',
 };
 
 const RestClientContainer = () => {
