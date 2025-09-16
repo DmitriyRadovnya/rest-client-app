@@ -1,7 +1,5 @@
-import { CODE_LANGS } from '@/lib/static/codeGen/codeGen';
-
-declare type CodeLangType = (typeof CODE_LANGS)[number];
-
-declare type CodeLangMeta = {
+declare type CodeGenVariant = {
+  lang: string;
+  variant: string;
   label: string;
 };

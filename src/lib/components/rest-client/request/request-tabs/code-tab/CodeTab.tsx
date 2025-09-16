@@ -1,44 +1,59 @@
 import React from 'react';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Stack,
-} from '@mui/material';
+import { Autocomplete, FormControl, Stack, TextField } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
-import { CodeLangType } from '@/lib/static/codeGen/codeGen.types';
-import { CODE_LANG_META, CODE_LANGS } from '@/lib/static/codeGen/codeGen';
+import { CODE_VARIANTS } from '@/lib/static/codeGen/codeGen';
+import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 
 const CodeTab = () => {
-  const { control } = useFormContext<{ codeLang: CodeLangType }>();
+  const { control, watch, setValue } = useFormContext<UserRequest>();
+  const snippet = watch('snippet');
 
   return (
-    <Stack gap={2}>
-      <Box display="flex">
-        <FormControl size="small">
-          <InputLabel id="code-lang-label">{'</>'}</InputLabel>
-          <Controller
-            name="codeLang"
-            control={control}
-            render={({ field }) => (
-              <Select
+    <Stack spacing={2}>
+      <FormControl>
+        <Controller
+          name="codeVariant"
+          control={control}
+          render={({ field }) => (
+            <Autocomplete
+              value={field.value}
+              onChange={(_, v) => field.onChange(v)}
+              getOptionLabel={(o) => o.label}
+              isOptionEqualToValue={(a, b) =>
+                a.lang === b.lang && a.variant === b.variant
+              }
+              options={CODE_VARIANTS}
+              renderInput={(params) => (
+                <TextField {...params} label="Language / Variant" />
+              )}
+            />
+          )}
+        />
+      </FormControl>
+      <FormControl>
+        <Controller
+          name="snippet"
+          control={control}
+          render={({ field }) => {
+            return (
+              <TextField
                 {...field}
-                labelId="code-lang-label"
-                id="code-lang"
-                label="</>"
-              >
-                {CODE_LANGS.map((item) => (
-                  <MenuItem key={item} value={item}>
-                    {CODE_LANG_META[item].label}
-                  </MenuItem>
-                ))}
-              </Select>
-            )}
-          />
-        </FormControl>
-      </Box>
+                value={snippet}
+                multiline
+                minRows={8}
+                maxRows={24}
+                label="Code"
+                aria-readonly
+                slotProps={{
+                  input: {
+                    readOnly: true,
+                  },
+                }}
+              />
+            );
+          }}
+        />
+      </FormControl>
     </Stack>
   );
 };
