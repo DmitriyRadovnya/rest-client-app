@@ -6,13 +6,13 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
-    include: ["tests/**/*.{test,spec}.{ts,tsx}"],
+    include: ['tests/**/*.{test,spec}.{ts,tsx}'],
     globals: true,
-    environment: "jsdom",
-    setupFiles: "./tests/setup.ts",
+    environment: 'jsdom',
+    setupFiles: './tests/setup.ts',
     coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
       thresholds: {
         lines: 80,
         functions: 80,
@@ -20,5 +20,5 @@ export default defineConfig({
         statements: 80,
       },
     },
-  }
+  },
 });
