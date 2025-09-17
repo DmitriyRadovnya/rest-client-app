@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import Link from 'next/link';
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <Box
       sx={{
@@ -31,4 +31,6 @@ export default function NotFound() {
       </Link>
     </Box>
   );
-}
+};
+
+export default NotFound;
