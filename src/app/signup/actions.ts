@@ -17,8 +17,7 @@ export async function signup(values: SignUpValues) {
   })
 
   if (error) {
-    console.error(error)
-    redirect('/error')
+    return { error: error.message }
   }
 
   revalidatePath('/', 'layout')

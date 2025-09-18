@@ -1,12 +1,15 @@
 'use client'
 
-import { Box, TextField, Button, Typography } from '@mui/material'
+import { Box, TextField, Button, Typography, Alert } from '@mui/material'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signup } from '@/app/signup/actions'
 import { signUpSchema, SignUpValues } from '@/lib/validation/auth.schema'
+import { useState } from 'react'
 
 export default function SignUpForm() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
   const {
     register,
     handleSubmit,
@@ -17,7 +20,11 @@ export default function SignUpForm() {
   })
 
   const onSubmit: SubmitHandler<SignUpValues> = async (data) => {
-    await signup(data)
+    setErrorMessage(null)
+    const res = await signup(data)
+    if (res?.error) {
+      setErrorMessage(res.error)
+    }
   }
 
   return (
@@ -33,10 +40,15 @@ export default function SignUpForm() {
         flexDirection: 'column',
         gap: 2,
       }}
+      noValidate
     >
       <Typography variant="h5" align="center" gutterBottom>
         Sign Up
       </Typography>
+
+      {errorMessage && (
+        <Alert severity="error">{errorMessage}</Alert>
+      )}
 
       <TextField
         {...register('username')}
