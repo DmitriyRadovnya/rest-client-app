@@ -1,7 +1,8 @@
 'use client'
 
-import { Box, TextField, Button, Typography } from '@mui/material'
+import { Box, TextField, Button, Typography, Alert } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import { login } from '@/app/signin/actions'
 
 type LoginValues = {
@@ -11,9 +12,13 @@ type LoginValues = {
 
 export default function SignInForm() {
   const { register, handleSubmit, formState } = useForm<LoginValues>()
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const onSubmit = async (data: LoginValues) => {
-    await login(data)
+    const res = await login(data)
+    if (res?.error) {
+      setErrorMessage(res.error)
+    }
   }
 
   return (
@@ -33,6 +38,8 @@ export default function SignInForm() {
       <Typography variant="h5" align="center" gutterBottom>
         Sign In
       </Typography>
+
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
       <TextField
         {...register('email')}

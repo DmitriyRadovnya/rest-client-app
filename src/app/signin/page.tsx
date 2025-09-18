@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/providers/supabase/server";
 import { Box } from "@mui/material";
-import SignInForm from "@/lib/components/auth/sign-up/SignInForm";
+import SignInForm from "@/lib/components/auth/sign-in/SignInForm";
 
 export default async function SignInPage() {
   const supabase = await createClient();
