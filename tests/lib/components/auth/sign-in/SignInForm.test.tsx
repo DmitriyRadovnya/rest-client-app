@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SignInForm from '@/lib/components/auth/sign-in/SignInForm';
 import * as signinActions from '@/app/signin/actions';
 import { vi } from 'vitest';
+import { SignInForm } from '@/lib/components/auth/sign-in/SignInForm';
 
 vi.mock('@/app/signin/actions', () => ({
   login: vi.fn(),

@@ -7,18 +7,18 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    tsconfigPaths() // Использует алиасы из tsconfig.json
+    tsconfigPaths()
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src') // Дополнительно, чтобы точно работало
+      '@': path.resolve(__dirname, 'src')
     }
   },
   test: {
-    include: ["tests/**/*.{test,spec}.{ts,tsx}"], // Тесты в папке tests
+    include: ["tests/**/*.{test,spec}.{ts,tsx}"],
     globals: true,
     environment: "jsdom",
-    setupFiles: "./tests/setup.ts", // Файл глобальной настройки
+    setupFiles: "./tests/setup.ts",
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
