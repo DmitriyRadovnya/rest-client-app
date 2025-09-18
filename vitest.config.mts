@@ -2,14 +2,23 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [
+    react(),
+    tsconfigPaths() // Использует алиасы из tsconfig.json
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src') // Дополнительно, чтобы точно работало
+    }
+  },
   test: {
-    include: ["tests/**/*.{test,spec}.{ts,tsx}"],
+    include: ["tests/**/*.{test,spec}.{ts,tsx}"], // Тесты в папке tests
     globals: true,
     environment: "jsdom",
-    setupFiles: "./tests/setup.ts",
+    setupFiles: "./tests/setup.ts", // Файл глобальной настройки
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
@@ -20,5 +29,5 @@ export default defineConfig({
         statements: 80,
       },
     },
-  }
+  },
 });
