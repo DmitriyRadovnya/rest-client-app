@@ -3,16 +3,14 @@
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import theme from '@/app/theme';
 import { FC, PropsWithChildren } from 'react';
-import Header from '@/lib/components/header/Header';
 import Footer from '@/lib/components/footer/Footer';
 
 const MuiProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
       <Container
-        maxWidth="xl"
+        maxWidth={false}
         disableGutters
         sx={{
           flex: 1,

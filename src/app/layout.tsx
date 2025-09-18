@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import { CssBaseline } from '@mui/material';
 import MuiProvider from '@/lib/providers/muiProvider';
 import './globals.css';
+import HeaderServer from '@/lib/components/header/HeaderServer';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -28,7 +29,12 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <CssBaseline />
-          <MuiProvider>{children}</MuiProvider>
+            <MuiProvider>
+              <HeaderServer />
+              <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+                {children}
+              </main>
+            </MuiProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
