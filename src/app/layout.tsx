@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import { CssBaseline } from '@mui/material';
 import MuiProvider from '@/lib/providers/muiProvider';
 import './globals.css';
-import HeaderServer from '@/lib/components/header/HeaderServer';
+import { HeaderServer } from '@/lib/components/header/HeaderServer';
 
 const roboto = Roboto({
   weight: ['300', '400', '500', '700'],

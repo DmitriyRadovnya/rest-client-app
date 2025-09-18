@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, TextField, Button, Typography, Alert } from '@mui/material'
+import { Box, TextField, Button, Typography, Alert, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { login } from '@/app/signin/actions'
@@ -10,7 +10,7 @@ type LoginValues = {
   password: string
 }
 
-export default function SignInForm() {
+export const SignInForm = () => {
   const { register, handleSubmit, formState } = useForm<LoginValues>()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -64,8 +64,9 @@ export default function SignInForm() {
         variant="contained"
         fullWidth
         disabled={formState.isSubmitting}
+        startIcon={formState.isSubmitting ? <CircularProgress size={20} /> : null}
       >
-        Sign In
+        {formState.isSubmitting ? 'Signing in...' : 'Sign In'}
       </Button>
     </Box>
   )

@@ -6,8 +6,9 @@ import Link from 'next/link';
 import type { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/providers/supabase/client';
+import { SignOutButton } from './SignOutButton';
 
-export default function HeaderClient({ initialUser }: { initialUser: User | null }) {
+export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(initialUser);
   const router = useRouter();
@@ -54,7 +55,7 @@ export default function HeaderClient({ initialUser }: { initialUser: User | null
                 <Button component={Link} href="/signup" color="inherit">Sign Up</Button>
               </>
             ) : (
-              <Button color="inherit" onClick={handleSignOut}>Sign Out</Button>
+              <SignOutButton onSignOut={handleSignOut} />
             )}
           </Box>
         </Toolbar>

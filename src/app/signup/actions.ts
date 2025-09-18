@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { SignUpValues } from '@/lib/validation/auth.schema'
 
-export async function signup(values: SignUpValues) {
+export const signup = async (values: SignUpValues) => {
   const supabase = await createClient()
 
   const { username, email, password } = values

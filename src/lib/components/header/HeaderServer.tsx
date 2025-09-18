@@ -1,8 +1,8 @@
-import HeaderClient from './HeaderClient';
 import { createClient } from '@/lib/providers/supabase/server';
 import type { User } from '@supabase/supabase-js';
+import { HeaderClient } from './HeaderClient';
 
-export default async function HeaderServer() {
+export const HeaderServer = async () => {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   const user = data.user as User | null;

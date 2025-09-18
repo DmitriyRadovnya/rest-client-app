@@ -1,8 +1,9 @@
-import { signOut } from "@/app/signin/actions";
+import { Button } from '@mui/material';
 
-export default function SignOutButton() {
+export const SignOutButton = ({ onSignOut }: { onSignOut: () => void }) => {
   return (
-    <button onClick={() => signOut()}>Sign Out</button>
-  )
-}
-
+    <Button color="inherit" onClick={onSignOut}>
+      Sign Out
+    </Button>
+  );
+};

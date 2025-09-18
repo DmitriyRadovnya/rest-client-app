@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/providers/supabase/server";
 import { Box } from "@mui/material";
-import SignUpForm from "@/lib/components/auth/sign-up/SignUpForm";
+import { SignUpForm } from "@/lib/components/auth/sign-up/SignUpForm";
 
-export default async function SignUpPage() {
+const SignUpPage = async () => {
   const supabase = await createClient();
   const {
     data: { user },
@@ -26,3 +26,5 @@ export default async function SignUpPage() {
     </Box>
   );
 }
+
+export default SignUpPage;

@@ -7,7 +7,7 @@ import { signup } from '@/app/signup/actions'
 import { signUpSchema, SignUpValues } from '@/lib/validation/auth.schema'
 import { useState } from 'react'
 
-export default function SignUpForm() {
+export const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const {
