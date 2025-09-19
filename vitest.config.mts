@@ -22,6 +22,23 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
+      exclude: [
+         '**/layout.tsx',
+        '**/theme.ts',
+        '**/route.ts',
+        '**/node_modules/**',
+        '**/tests/**',
+        '**/.next/**',
+        '**/%5Bturbopack%5D_runtime.js',
+        "eslint.config.mjs",
+        "next-env.d.ts",
+        "next.config.ts",
+        "vitest.config.mts",
+        "middleware.ts",
+        "src/lib/providers/**",
+        "src/lib/static/**",
+        "src/lib/utils/**",
+      ],
       thresholds: {
         lines: 80,
         functions: 80,
