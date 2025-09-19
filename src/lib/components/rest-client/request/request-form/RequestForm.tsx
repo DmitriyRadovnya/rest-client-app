@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import {
   Box,
   Button,
@@ -25,7 +25,7 @@ const RequestForm = () => {
   const methodHasBody = (m: MethodType) => m !== 'GET';
 
   const handleClose = (
-    event: React.SyntheticEvent | Event,
+    event: SyntheticEvent | Event,
     reason?: SnackbarCloseReason
   ) => {
     if (reason === 'clickaway') {

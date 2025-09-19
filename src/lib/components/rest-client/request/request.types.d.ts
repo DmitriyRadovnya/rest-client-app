@@ -6,4 +6,6 @@ declare interface UserRequest {
   headers: HeaderRow[];
   body: string;
   bodyMode: 'json' | 'text';
+  codeVariant: CodeGenVariant;
+  snippet: string;
 }
