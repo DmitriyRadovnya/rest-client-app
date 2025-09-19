@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import RequestFormProvider from '@/lib/providers/RequestFormProvider';
 import RequestForm from '@/lib/components/rest-client/request/request-form/RequestForm';
+import { CODE_VARIANTS } from '@/lib/static/codeGen/codeGen';
 
 const initialState: UserRequest = {
   method: 'GET',
@@ -11,6 +12,8 @@ const initialState: UserRequest = {
   headers: [],
   body: '',
   bodyMode: 'json',
+  codeVariant: CODE_VARIANTS[0],
+  snippet: '',
 };
 
 const RestClientContainer = () => {
