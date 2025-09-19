@@ -45,7 +45,7 @@ const Page = async () => {
           <Box mt={2}>
             <Button
               component={Link}
-              href="/rest-client"
+              href="/client"
               variant="outlined"
               sx={{ mr: 2 }}
             >
