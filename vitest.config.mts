@@ -31,6 +31,7 @@ export default defineConfig({
         '**/.next/**',
         '**/%5Bturbopack%5D_runtime.js',
         "eslint.config.mjs",
+        "**/*.d.ts",
         "next-env.d.ts",
         "next.config.ts",
         "vitest.config.mts",

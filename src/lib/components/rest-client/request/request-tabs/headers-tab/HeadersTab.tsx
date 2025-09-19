@@ -55,7 +55,7 @@ const HeadersTab = () => {
                 <TextField {...field} size="small" label="Value" />
               )}
             />
-            <IconButton onClick={() => remove(index)}>
+            <IconButton onClick={() => remove(index)} aria-label="Delete header">
               <DeleteIcon />
             </IconButton>
           </Stack>
