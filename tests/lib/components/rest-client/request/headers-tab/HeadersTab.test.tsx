@@ -1,9 +1,19 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useForm, FormProvider } from 'react-hook-form';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import HeadersTab from '@/lib/components/rest-client/request/request-tabs/headers-tab/HeadersTab';
+
+
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => {
+    const dict: Record<string, string> = {
+      addHeader: 'Add header',
+    };
+    return dict[key] ?? key;
+  },
+}));
 
 const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const methods = useForm<UserRequest>({
@@ -13,7 +23,7 @@ const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 };
 
 describe('HeadersTab', () => {
-  it('adds a new header when clicking the add button', async () => {
+  it('add a new header when clicking the add button', async () => {
     render(
       <Wrapper>
         <HeadersTab />
@@ -49,7 +59,7 @@ describe('HeadersTab', () => {
     expect(screen.queryByLabelText(/value/i)).not.toBeInTheDocument();
   });
 
-  it('allow editing key, value, and checkbox', async () => {
+  it('allows editing key, value, and checkbox', async () => {
     render(
       <Wrapper>
         <HeadersTab />

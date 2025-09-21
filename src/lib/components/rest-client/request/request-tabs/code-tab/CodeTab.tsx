@@ -3,8 +3,10 @@ import { Autocomplete, FormControl, Stack, TextField } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { CODE_VARIANTS } from '@/lib/static/codeGen/codeGen';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
+import { useTranslations } from 'next-intl';
 
 const CodeTab = () => {
+  const t = useTranslations("CodeTab");
   const { control, watch, getValues, setValue } = useFormContext<UserRequest>();
   const snippet = watch('snippet');
   const codeVariant = watch('codeVariant');
@@ -68,7 +70,7 @@ const CodeTab = () => {
               }
               options={CODE_VARIANTS}
               renderInput={(params) => (
-                <TextField {...params} label="Language / Variant" />
+                <TextField {...params} label={t("languageVariant")} />
               )}
             />
           )}
@@ -86,7 +88,7 @@ const CodeTab = () => {
                 multiline
                 minRows={8}
                 maxRows={24}
-                label="Code"
+                label={t("code")}
                 aria-readonly
                 slotProps={{
                   input: {

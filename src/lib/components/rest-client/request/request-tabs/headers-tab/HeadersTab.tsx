@@ -12,8 +12,10 @@ import { UserRequest } from '@/lib/components/rest-client/request/request.types'
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import { useTranslations } from 'next-intl';
 
 const HeadersTab = () => {
+  const t = useTranslations("HeadersTab");
   const { control } = useFormContext<UserRequest>();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -28,7 +30,7 @@ const HeadersTab = () => {
         variant="outlined"
         sx={{ marginBottom: 2 }}
       >
-        Add header
+        {t("addHeader")}
       </Button>
       <Stack>
         {fields.map((item, index) => (

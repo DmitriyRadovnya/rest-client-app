@@ -1,42 +1,94 @@
-import { describe, it, expect, vi } from 'vitest';
-import type { AuthError, Session } from '@supabase/supabase-js';
-import { login, type LoginResult } from '@/app/signin/actions';
-import * as supabaseServer from '@/lib/providers/supabase/server';
-import * as nextNavigation from 'next/navigation';
-import * as nextCache from 'next/cache';
-import { fakeClient } from 'tests/mocks/supabaseClientMock';
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import type { AuthError, Session } from "@supabase/supabase-js";
+import { login, type LoginResult } from "@/app/[locale]/signin/actions";
 
-const mockedSupabase = vi.mocked(supabaseServer);
-const mockedNavigation = vi.mocked(nextNavigation);
-const mockedCache = vi.mocked(nextCache);
+vi.mock("@/lib/providers/supabase/server", () => ({
+  createClient: vi.fn(),
+}));
 
-describe('login', () => {
-  it('return error if credentials are invalid', async () => {
-    mockedSupabase.createClient.mockResolvedValue(
-      fakeClient({
-        session: null,
-        error: { message: 'Invalid login' } as AuthError,
-      })
-    );
+vi.mock("next/navigation", () => ({
+  redirect: vi.fn(),
+}));
 
-    const result: LoginResult = await login({
-      email: 'test',
-      password: 'wrong',
-    });
-    expect(result).toEqual({ error: 'Invalid login credentials' });
+vi.mock("next/cache", () => ({
+  revalidatePath: vi.fn(),
+}));
+
+vi.mock("next/headers", () => ({
+  headers: vi.fn(),
+}));
+
+import { createClient } from "@/lib/providers/supabase/server";
+import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
+import { vi } from "vitest";
+
+describe("login action", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
   });
 
-  it('redirect if credentials are valid', async () => {
-    mockedSupabase.createClient.mockResolvedValue(
-      fakeClient({
-        session: { access_token: 'abc' } as Session,
-        error: null,
-      })
+  it("return error if credentials are invalid", async () => {
+    (createClient as vi.Mock).mockResolvedValue({
+      auth: {
+        signInWithPassword: vi.fn().mockResolvedValue({
+          data: { session: null },
+          error: { message: "Invalid login" } as AuthError,
+        }),
+      },
+    });
+
+    (headers as vi.Mock).mockReturnValue(new Map([["referer", "http://localhost/en"]]));
+
+    const result: LoginResult = await login({ email: "test", password: "wrong" });
+
+    expect(result).toEqual({ error: "Invalid login credentials" });
+    expect(revalidatePath).not.toHaveBeenCalled();
+    expect(redirect).not.toHaveBeenCalled();
+  });
+
+  it("redirect if credentials are valid", async () => {
+    const session = { access_token: "abc" } as Session;
+
+    (createClient as vi.Mock).mockResolvedValue({
+      auth: {
+        signInWithPassword: vi.fn().mockResolvedValue({
+          data: { session },
+          error: null,
+        }),
+        setSession: vi.fn().mockResolvedValue({}),
+      },
+    });
+
+    (headers as vi.Mock).mockReturnValue(
+      new Map([["referer", "http://localhost/ru/profile"]])
     );
 
     await login({ email: 'user@mail.com', password: 'secret' });
 
-    expect(mockedCache.revalidatePath).toHaveBeenCalledWith('/', 'layout');
-    expect(mockedNavigation.redirect).toHaveBeenCalledWith('/');
+    expect(revalidatePath).toHaveBeenCalledWith("/ru", "layout");
+    expect(redirect).toHaveBeenCalledWith("/ru");
+  });
+
+  it("default to 'en' locale if referer is missing", async () => {
+    const session = { access_token: "abc" } as Session;
+
+    (createClient as vi.Mock).mockResolvedValue({
+      auth: {
+        signInWithPassword: vi.fn().mockResolvedValue({
+          data: { session },
+          error: null,
+        }),
+        setSession: vi.fn().mockResolvedValue({}),
+      },
+    });
+
+    (headers as vi.Mock).mockReturnValue(new Map());
+
+    await login({ email: "user@mail.com", password: "secret" });
+
+    expect(revalidatePath).toHaveBeenCalledWith("/en", "layout");
+    expect(redirect).toHaveBeenCalledWith("/en");
   });
 });

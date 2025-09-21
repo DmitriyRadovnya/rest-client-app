@@ -52,3 +52,5 @@ export const updateSession = async (request: NextRequest) => {
 export const config = {
   matcher: ['/signin', '/signup', '/rest-client/:path*', '/history/:path*'],
 };
+
+

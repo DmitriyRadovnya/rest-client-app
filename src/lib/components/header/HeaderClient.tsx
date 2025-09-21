@@ -5,21 +5,26 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   Box,
   Container,
-  useScrollTrigger,
+  useScrollTrigger
 } from '@mui/material';
-import Link from 'next/link';
 import type { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { createClient } from '@/lib/providers/supabase/client';
 import { SignOutButton } from './SignOutButton';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { Link } from '@/i18n/routing';
+import { LocalizedButtonLink } from './LocalizedButtonLink';
 
 export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
+  const t = useTranslations('Header');
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(initialUser);
   const router = useRouter();
+  const locale = useLocale();
+  const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
 
   useEffect(() => {
     setUser(initialUser);
@@ -27,7 +32,7 @@ export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
 
   useEffect(() => {
     const {
-      data: { subscription },
+      data: { subscription }
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
@@ -40,10 +45,8 @@ export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.refresh();
-    router.push('/');
+    router.push(`/${locale}`);
   };
-
-  const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 0 });
 
   return (
     <AppBar position="sticky" elevation={trigger ? 4 : 0}>
@@ -62,15 +65,17 @@ export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
             REST Client
           </Typography>
 
-          <Box ml="auto">
+          <Box ml="auto" sx={{ display: 'flex', alignItems: 'center' }}>
+            <LanguageSwitcher />
+
             {!user ? (
               <>
-                <Button component={Link} href="/signin" color="inherit">
-                  Sign In
-                </Button>
-                <Button component={Link} href="/signup" color="inherit">
-                  Sign Up
-                </Button>
+                <LocalizedButtonLink href="/signin" color="inherit">
+                  {t('signin')}
+                </LocalizedButtonLink>
+                <LocalizedButtonLink href="/signup" color="inherit">
+                  {t('signup')}
+                </LocalizedButtonLink>
               </>
             ) : (
               <SignOutButton onSignOut={handleSignOut} />

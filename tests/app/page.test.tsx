@@ -1,25 +1,22 @@
-import { render, screen } from '@testing-library/react';
-import { vi, describe, it, beforeEach } from 'vitest';
-import type { User } from '@supabase/supabase-js';
+import { render, screen } from "@testing-library/react";
+import { vi, describe, it, beforeEach } from "vitest";
+import type { User } from "@supabase/supabase-js";
+import * as supabaseServer from "@/lib/providers/supabase/server";
+import { fakeClient } from "tests/mocks/supabaseClientMock";
+import Page from "@/app/[locale]/page";
 
-import * as supabaseServer from '@/lib/providers/supabase/server';
-import { fakeClient } from 'tests/mocks/supabaseClientMock';
-import Page from '@/app/page';
+vi.mock("@/lib/providers/supabase/server");
 
-vi.mock('@/lib/providers/supabase/server');
-vi.mock('next/navigation', () => ({ redirect: vi.fn() }));
-
-describe('Page', () => {
-  let clientMock = fakeClient();
-
+describe("Page", () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    clientMock = fakeClient();
-    vi.mocked(supabaseServer.createClient).mockResolvedValue(clientMock);
   });
 
-  it('render Sign In / Sign Up for guest', async () => {
-    const element = await Page();
+  it("render Sign In / Sign Up for guest", async () => {
+    const clientMock = fakeClient({ user: null });
+    vi.mocked(supabaseServer.createClient).mockResolvedValue(clientMock);
+
+    const element = await Page({ params: { locale: "en" } });
     render(element);
 
     expect(
@@ -37,12 +34,10 @@ describe('Page', () => {
       user_metadata: { username: 'John' },
     };
 
-    vi.mocked(clientMock.auth.getUser).mockResolvedValue({
-      data: { user: user as User },
-      error: null,
-    });
+    const clientMock = fakeClient({ user: user as User });
+    vi.mocked(supabaseServer.createClient).mockResolvedValue(clientMock);
 
-    const element = await Page();
+    const element = await Page({ params: { locale: "en" } });
     render(element);
 
     expect(
@@ -54,3 +49,6 @@ describe('Page', () => {
     ).toBeInTheDocument();
   });
 });
+
+
+

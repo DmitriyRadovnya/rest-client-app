@@ -1,0 +1,66 @@
+{
+  "HomePage": {
+    "title-anon": "Welcome!",
+    "title-auth": "Welcome Back",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "rest": "REST Client",
+    "history": "History",
+    "variables": "Variables"
+  },
+  "Header": {
+    "signin": "Sign In",
+    "signup": "Sign Up"
+  },
+  "SignOut": {
+    "signout": "Sign Out"
+  },
+  "SignInForm": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "signin": "Sign In",
+    "signingIn": "Signing in..."
+  },
+  "SignUpForm": {
+    "title": "Sign Up",
+    "name": "User name",
+    "email": "Email",
+    "password": "Password",
+    "signup": "Sign Up"
+  },
+  "RequestForm": {
+    "method": "Method",
+    "invalidUrl": "Enter valid URL",
+    "enterUrl": "Enter URL",
+    "send": "Send"
+  },
+  "BodyTab": {
+    "json": "JSON",
+    "text": "Text",
+    "prettify": "Prettify",
+    "minify": "Minify",
+    "invalidJson": "Enter valid JSON"
+  },
+  "CodeTab": {
+    "languageVariant": "Language / Variant",
+    "code": "Code"
+  },
+  "RequestTabs": {
+    "headers": "Headers",
+    "body": "Body",
+    "code": "Code"
+  },
+  "Response": {
+    "firstRequest": "Send your first request",
+    "error": "Error: {message}"
+  },
+  "HeadersTab": {
+    "addHeader": "Add header"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "Sorry, but the page you requested does not exist. You may have entered an incorrect address or the page has been removed.",
+    "backHome": "Return to home page"
+  }
+}
