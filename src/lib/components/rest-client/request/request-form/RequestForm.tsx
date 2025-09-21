@@ -21,6 +21,7 @@ import { convertHeaders } from '@/lib/utils/convertHeaders';
 import { resolveUrl } from '@/lib/utils/resolveUrl';
 import { getErrorMessage } from '@/lib/utils/getErrorMessage';
 import { ApiResponseData } from '../../RestClientContainer';
+import { useTranslations } from 'next-intl';
 
 interface RequestFormProps {
   onSuccess: (data: ApiResponseData) => void;
@@ -28,6 +29,7 @@ interface RequestFormProps {
 }
 
 const RequestForm: React.FC<RequestFormProps> = ({ onSuccess, onError }) => {
+  const t = useTranslations("RequestForm");
   const { control, handleSubmit } = useFormContext<UserRequest>();
   const [open, setOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -110,7 +112,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ onSuccess, onError }) => {
       </Snackbar>
       <Box display="flex" alignItems="start" gap={2}>
         <FormControl>
-          <InputLabel id="method-select-label">Method</InputLabel>
+          <InputLabel id="method-select-label">{t("method")}</InputLabel>
           <Controller
             name="method"
             control={control}
@@ -119,7 +121,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ onSuccess, onError }) => {
                 {...field}
                 labelId="method-select-label"
                 id="method-select"
-                label="Method"
+                label={t("method")}
                 size="small"
               >
                 {METHODS.map((item) => (
@@ -137,14 +139,14 @@ const RequestForm: React.FC<RequestFormProps> = ({ onSuccess, onError }) => {
             name="url"
             control={control}
             rules={{
-              required: 'Enter valid URL',
-              validate: (arg) => !!resolveUrl(arg) || 'Enter valid URL',
+              required: t("invalidUrl"),
+              validate: (arg) => !!resolveUrl(arg) || t("invalidUrl"),
             }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
                 id="url"
-                label="Enter URL"
+                label={t("enterUrl")}
                 size="small"
                 error={!!fieldState.error}
                 helperText={fieldState.error?.message}
@@ -159,7 +161,7 @@ const RequestForm: React.FC<RequestFormProps> = ({ onSuccess, onError }) => {
             size="medium"
             endIcon={<SendIcon />}
           >
-            send
+            {t("send")}
           </Button>
         </FormControl>
       </Box>

@@ -28,5 +28,34 @@
     "email": "Email",
     "password": "Password",
     "signup": "Sign Up"
+  },
+  "RequestForm": {
+    "method": "Method",
+    "invalidUrl": "Enter valid URL",
+    "enterUrl": "Enter URL",
+    "send": "Send"
+  },
+  "BodyTab": {
+    "json": "JSON",
+    "text": "Text",
+    "prettify": "Prettify",
+    "minify": "Minify",
+    "invalidJson": "Enter valid JSON"
+  },
+  "CodeTab": {
+    "languageVariant": "Language / Variant",
+    "code": "Code"
+  },
+  "RequestTabs": {
+    "headers": "Headers",
+    "body": "Body",
+    "code": "Code"
+  },
+  "Response": {
+    "firstRequest": "Send your first request",
+    "error": "Error: {message}"
+  },
+  "HeadersTab": {
+    "addHeader": "Add header"
   }
 }

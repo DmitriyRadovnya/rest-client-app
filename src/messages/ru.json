@@ -28,5 +28,34 @@
     "email": "Электронная почта",
     "password": "Пароль",
     "signup": "Регистрация"
+  },
+  "RequestForm": {
+    "method": "Метод",
+    "invalidUrl": "Введите корректный URL",
+    "enterUrl": "Введите URL",
+    "send": "Отправить"
+  },
+  "BodyEditor": {
+    "json": "JSON",
+    "text": "Текст",
+    "prettify": "Форматировать",
+    "minify": "Минифицировать",
+    "invalidJson": "Введите корректный JSON"
+  },
+  "CodeTab": {
+    "languageVariant": "Язык / Вариант",
+    "code": "Код"
+  },
+  "RequestTabs": {
+    "headers": "Заголовки",
+    "body": "Тело",
+    "code": "Код"
+  },
+  "Response": {
+    "firstRequest": "Отправьте свой первый запрос",
+    "error": "Ошибка: {message}"
+  },
+  "HeadersTab": {
+    "addHeader": "Добавить заголовок"
   }
 }

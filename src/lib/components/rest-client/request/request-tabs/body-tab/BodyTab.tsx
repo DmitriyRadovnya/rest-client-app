@@ -12,8 +12,10 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import { checkContentType } from '@/lib/utils/checkContentType';
 import { isJSON } from '@/lib/utils/isJSON';
+import { useTranslations } from 'next-intl';
 
 const BodyTab = () => {
+  const t = useTranslations("BodyTab");
   const { watch, setValue, control } = useFormContext<UserRequest>();
   const body = watch('body');
   const mode = watch('bodyMode');
@@ -42,8 +44,8 @@ const BodyTab = () => {
           value={mode}
           onChange={handleChange}
         >
-          <ToggleButton value="json">JSON</ToggleButton>
-          <ToggleButton value="text">Text</ToggleButton>
+          <ToggleButton value="json">{t("json")}</ToggleButton>
+          <ToggleButton value="text">{t("text")}</ToggleButton>
         </ToggleButtonGroup>
         <ButtonGroup
           color="primary"
@@ -51,8 +53,8 @@ const BodyTab = () => {
           aria-label="body format"
           disabled={!body || mode !== 'json'}
         >
-          <Button>Prettify</Button>
-          <Button>Minify</Button>
+          <Button>{t("prettify")}</Button>
+          <Button>{t("minify")}</Button>
         </ButtonGroup>
       </Box>
       <Controller
@@ -68,10 +70,10 @@ const BodyTab = () => {
               onChange={(e) =>
                 setValue('body', e.target.value, { shouldDirty: true })
               }
-              label={mode === 'json' ? 'JSON' : 'Text'}
+              label={mode === 'json' ? t("json") : t("text")}
               error={mode === 'json' && !isJSON(body)}
               helperText={
-                mode === 'json' && !isJSON(body) ? 'Enter valid JSON' : ' '
+                mode === 'json' && !isJSON(body) ? t("invalidJson") : ' '
               }
             />
           );

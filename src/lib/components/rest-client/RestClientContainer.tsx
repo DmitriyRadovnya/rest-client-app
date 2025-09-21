@@ -6,6 +6,7 @@ import RequestFormProvider from '@/lib/providers/RequestFormProvider';
 import RequestForm from '@/lib/components/rest-client/request/request-form/RequestForm';
 import { CODE_VARIANTS } from '@/lib/static/codeGen/codeGen';
 import ApiResponse from '@/lib/components/rest-client/response/ApiResponse';
+import { useTranslations } from 'next-intl';
 
 const initialState: UserRequest = {
   method: 'GET',
@@ -25,6 +26,7 @@ export interface ApiResponseData {
 }
 
 const RestClientContainer = () => {
+  const t = useTranslations("Response");
   const [response, setResponse] = useState<ApiResponseData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,9 +45,9 @@ const RestClientContainer = () => {
       <RequestFormProvider initial={initialState}>
         <RequestForm onSuccess={handleResponse} onError={handleError} />
       </RequestFormProvider>
-      {!response && !error && <div>Send your first request</div>}
+      {!response && !error && <div>{t("firstRequest")}</div>}
       {response && <ApiResponse data={response} />}
-      {error && <Box color="error.main">Error: {error}</Box>}
+      {error && <Box color="error.main">{t("error", { message: error })}</Box>}
     </Box>
   );
 };

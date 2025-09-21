@@ -4,6 +4,18 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { UserRequest } from '@/lib/components/rest-client/request/request.types';
 import RequestForm from '@/lib/components/rest-client/request/request-form/RequestForm';
 
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => {
+    const dict: Record<string, string> = {
+      method: 'Method',
+      enterUrl: 'Enter URL',
+      send: 'Send',
+      invalidUrl: 'Enter valid URL',
+    };
+    return dict[key] ?? key;
+  },
+}));
+
 describe('RequestForm', () => {
   const Wrapper = ({
     defaultValues,
@@ -34,18 +46,18 @@ describe('RequestForm', () => {
   it('render method select, url input and send button', () => {
     render(<Wrapper />);
 
-    expect(screen.getByLabelText(/method/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/enter url/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /send/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/Method/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Enter URL/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Send/i })).toBeInTheDocument();
   });
 
   it('shows validation error for invalid url', async () => {
     render(<Wrapper />);
 
-    await userEvent.type(screen.getByLabelText(/enter url/i), 'not-a-url');
-    await userEvent.click(screen.getByRole('button', { name: /send/i }));
+    await userEvent.type(screen.getByLabelText(/Enter URL/i), 'not-a-url');
+    await userEvent.click(screen.getByRole('button', { name: /Send/i }));
 
-    expect(await screen.findByText(/enter valid url/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Enter valid URL/i)).toBeInTheDocument();
   });
 
   it('call fetch with correct params on valid GET request', async () => {
@@ -56,7 +68,7 @@ describe('RequestForm', () => {
       <Wrapper defaultValues={{ url: 'https://example.com', method: 'GET' }} />
     );
 
-    await userEvent.click(screen.getByRole('button', { name: /send/i }));
+    await userEvent.click(screen.getByRole('button', { name: /Send/i }));
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledWith('https://example.com', {
@@ -74,7 +86,7 @@ describe('RequestForm', () => {
       <Wrapper defaultValues={{ url: 'https://example.com', method: 'GET' }} />
     );
 
-    await userEvent.click(screen.getByRole('button', { name: /send/i }));
+    await userEvent.click(screen.getByRole('button', { name: /Send/i }));
 
     expect(await screen.findByText(/Error/i)).toBeInTheDocument();
   });
