@@ -29,12 +29,10 @@ describe('HeaderClient', () => {
 
     mockedSupabase = {
       auth: {
-        getUser: vi
-          .fn()
-          .mockResolvedValue({
-            data: { user: null } as { user: User | null },
-            error: null,
-          }),
+        getUser: vi.fn().mockResolvedValue({
+          data: { user: null } as { user: User | null },
+          error: null,
+        }),
         onAuthStateChange: vi.fn().mockReturnValue({
           data: { subscription: { unsubscribe: vi.fn() } },
         }),

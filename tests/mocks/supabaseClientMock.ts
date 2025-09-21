@@ -8,12 +8,10 @@ export const fakeClient = (options?: {
 }) => {
   return {
     auth: {
-      getUser: vi
-        .fn()
-        .mockResolvedValue({
-          data: { user: options?.user ?? null },
-          error: null,
-        }),
+      getUser: vi.fn().mockResolvedValue({
+        data: { user: options?.user ?? null },
+        error: null,
+      }),
       signInWithPassword: vi.fn().mockResolvedValue({
         data: { session: options?.session ?? null },
         error: options?.error ?? null,
