@@ -57,5 +57,10 @@
   },
   "HeadersTab": {
     "addHeader": "Add header"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "Sorry, but the page you requested does not exist. You may have entered an incorrect address or the page has been removed.",
+    "backHome": "Return to home page"
   }
 }
