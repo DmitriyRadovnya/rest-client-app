@@ -1,0 +1,32 @@
+{
+  "HomePage": {
+    "title-anon": "Welcome!",
+    "title-auth": "Welcome Back",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "rest": "REST Client",
+    "history": "History",
+    "variables": "Variables"
+  },
+  "Header": {
+    "signin": "Sign In",
+    "signup": "Sign Up"
+  },
+  "SignOut": {
+    "signout": "Sign Out"
+  },
+  "SignInForm": {
+    "title": "Sign In",
+    "email": "Email",
+    "password": "Password",
+    "signin": "Sign In",
+    "signingIn": "Signing in..."
+  },
+  "SignUpForm": {
+    "title": "Sign Up",
+    "name": "User name",
+    "email": "Email",
+    "password": "Password",
+    "signup": "Sign Up"
+  }
+}

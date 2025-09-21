@@ -1,60 +1,86 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import * as signinActions from '@/app/signin/actions';
-import { vi } from 'vitest';
-import { SignInForm } from '@/lib/components/auth/sign-in/SignInForm';
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { vi, Mock } from "vitest";
+import { SignInForm } from "@/lib/components/auth/sign-in/SignInForm";
 
-vi.mock('@/app/signin/actions', () => ({
+
+const messages = {
+  SignInForm: {
+    title: "Sign In",
+    email: "Email",
+    password: "Password",
+    signin: "Sign In",
+    signingIn: "Signing In...",
+  },
+} as const;
+
+vi.mock("next-intl", () => ({
+  useTranslations:
+    (ns?: keyof typeof messages) =>
+    (key: keyof (typeof messages)["SignInForm"]) => {
+      if (!ns) return key;
+      return messages[ns][key];
+    },
+  useLocale: () => "en",
+}));
+
+vi.mock("@/app/[locale]/signin/actions", () => ({
   login: vi.fn(),
 }));
 
-const mockLogin = vi.mocked(signinActions.login);
+import { login } from "@/app/[locale]/signin/actions";
 
-describe('SignInForm', () => {
+describe("SignInForm", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it('render the form correctly', async () => {
+  it("render the form correctly", () => {
     render(<SignInForm />);
 
-    screen.getByRole('heading', { name: /sign in/i })
+    expect(
+      screen.getByRole("heading", { name: /sign in/i })
+    ).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
   });
 
-  it('call login successfully without showing an error', async () => {
-
-    mockLogin.mockResolvedValueOnce(undefined);
+  it("call login successfully without showing an error", async () => {
+    (login as Mock).mockResolvedValueOnce(undefined);
 
     render(<SignInForm />);
     const user = userEvent.setup();
 
-    await user.type(screen.getByLabelText(/email/i), 'test@example.com');
-    await user.type(screen.getByLabelText(/password/i), 'password123!');
-    await user.click(screen.getByRole('button', { name: /sign in/i }));
+    await user.type(screen.getByLabelText(/email/i), "test@example.com");
+    await user.type(screen.getByLabelText(/password/i), "password123!");
+    await user.click(screen.getByRole("button", { name: /sign in/i }));
 
     await waitFor(() => {
-      expect(mockLogin).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123!',
+      expect(login).toHaveBeenCalledWith({
+        email: "test@example.com",
+        password: "password123!",
       });
     });
 
-    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
-  it('shows an error when login fails', async () => {
-    mockLogin.mockResolvedValueOnce({ error: 'Invalid credentials' });
+  it("show an error when login fails", async () => {
+    (login as Mock).mockResolvedValueOnce({
+      error: "Invalid credentials",
+    });
 
     render(<SignInForm />);
     const user = userEvent.setup();
 
-    await user.type(screen.getByLabelText(/email/i), 'wrong@example.com');
-    await user.type(screen.getByLabelText(/password/i), 'wrongpass');
-    await user.click(screen.getByRole('button', { name: /sign in/i }));
+    await user.type(screen.getByLabelText(/email/i), "wrong@example.com");
+    await user.type(screen.getByLabelText(/password/i), "wrongpass");
+    await user.click(screen.getByRole("button", { name: /sign in/i }));
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Invalid credentials');
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Invalid credentials"
+    );
   });
 });
+

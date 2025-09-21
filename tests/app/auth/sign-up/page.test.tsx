@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { vi, describe, it, beforeEach } from "vitest";
 import { mockSupabaseClient } from "tests/mocks/supabaseMock";
-import SignUpPage from "@/app/signup/page";
 import { redirect } from "next/navigation";
+import SignUpPage from "@/app/[locale]/signup/page";
 
 vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
 

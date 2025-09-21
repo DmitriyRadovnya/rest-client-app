@@ -3,7 +3,8 @@
 import { Box, TextField, Button, Typography, Alert, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { login } from '@/app/signin/actions'
+import { login } from '@/app/[locale]/signin/actions'
+import { useTranslations } from 'next-intl'
 
 type LoginValues = {
   email: string
@@ -11,6 +12,7 @@ type LoginValues = {
 }
 
 export const SignInForm = () => {
+  const t = useTranslations('SignInForm');
   const { register, handleSubmit, formState } = useForm<LoginValues>()
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -36,14 +38,14 @@ export const SignInForm = () => {
       }}
     >
       <Typography variant="h5" align="center" gutterBottom>
-        Sign In
+        {t('title')}
       </Typography>
 
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
       <TextField
         {...register('email')}
-        label="Email"
+        label={t('email')}
         type="email"
         fullWidth
         margin="normal"
@@ -52,7 +54,7 @@ export const SignInForm = () => {
 
       <TextField
         {...register('password')}
-        label="Password"
+        label={t('password')}
         type="password"
         fullWidth
         margin="normal"
@@ -66,7 +68,7 @@ export const SignInForm = () => {
         disabled={formState.isSubmitting}
         startIcon={formState.isSubmitting ? <CircularProgress size={20} /> : null}
       >
-        {formState.isSubmitting ? 'Signing in...' : 'Sign In'}
+        {formState.isSubmitting ? t('signingIn') : t('signin')}
       </Button>
     </Box>
   )

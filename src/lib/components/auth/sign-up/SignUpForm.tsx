@@ -3,11 +3,13 @@
 import { Box, TextField, Button, Typography, Alert } from '@mui/material'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signup } from '@/app/signup/actions'
 import { signUpSchema, SignUpValues } from '@/lib/validation/auth.schema'
 import { useState } from 'react'
+import { signup } from '@/app/[locale]/signup/actions'
+import { useTranslations } from 'next-intl'
 
 export const SignUpForm = () => {
+  const t = useTranslations('SignUpForm');
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const {
@@ -43,7 +45,7 @@ export const SignUpForm = () => {
       noValidate
     >
       <Typography variant="h5" align="center" gutterBottom>
-        Sign Up
+        {t('title')}
       </Typography>
 
       {errorMessage && (
@@ -52,7 +54,7 @@ export const SignUpForm = () => {
 
       <TextField
         {...register('username')}
-        label="Username"
+        label={t('name')}
         fullWidth
         margin="normal"
         error={!!errors.username}
@@ -61,7 +63,7 @@ export const SignUpForm = () => {
 
       <TextField
         {...register('email')}
-        label="Email"
+        label={t('email')}
         type="email"
         fullWidth
         margin="normal"
@@ -71,7 +73,7 @@ export const SignUpForm = () => {
 
       <TextField
         {...register('password')}
-        label="Password"
+        label={t('password')}
         type="password"
         fullWidth
         margin="normal"
@@ -86,7 +88,7 @@ export const SignUpForm = () => {
         sx={{ mt: 2 }}
         disabled={isSubmitting}
       >
-        Sign Up
+        {t('signup')}
       </Button>
     </Box>
   )

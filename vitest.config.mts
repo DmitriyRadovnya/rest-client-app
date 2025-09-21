@@ -19,6 +19,10 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./tests/setup.ts",
+    alias: {
+      "@/": path.resolve(__dirname, "./src/"),
+      "next/navigation": "next/navigation.js",
+    },
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
@@ -39,6 +43,7 @@ export default defineConfig({
         "src/lib/providers/**",
         "src/lib/static/**",
         "src/lib/utils/**",
+        "**/i18n/**",
       ],
       thresholds: {
         lines: 80,

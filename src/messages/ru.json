@@ -1,0 +1,32 @@
+{
+  "HomePage": {
+    "title-anon": "Добро пожаловать!",
+    "title-auth": "С возвращением",
+    "signin": "Войти",
+    "signup": "Регистрация",
+    "rest": "REST-клиент",
+    "history": "История",
+    "variables": "Переменные"
+  },
+  "Header": {
+    "signin": "Войти",
+    "signup": "Регистрация"
+  },
+  "SignOut": {
+    "signout": "Выйти"
+  },
+  "SignInForm": {
+    "title": "Войти",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "signin": "Войти",
+    "signingIn": "Входим..."
+  },
+  "SignUpForm": {
+    "title": "Регистрация",
+    "name": "Имя пользовалеля",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "signup": "Регистрация"
+  }
+}

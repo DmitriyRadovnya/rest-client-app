@@ -1,26 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import { vi, describe, it, beforeEach } from "vitest";
 import type { User } from "@supabase/supabase-js";
-
 import * as supabaseServer from "@/lib/providers/supabase/server";
 import { fakeClient } from "tests/mocks/supabaseClientMock";
-import Page from "@/app/page";
+import Page from "@/app/[locale]/page";
 
 vi.mock("@/lib/providers/supabase/server");
-vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
 
 describe("Page", () => {
-  let clientMock = fakeClient();
-
   beforeEach(() => {
     vi.resetAllMocks();
-    clientMock = fakeClient();
-    vi.mocked(supabaseServer.createClient).mockResolvedValue(clientMock);
   });
 
   it("render Sign In / Sign Up for guest", async () => {
+    const clientMock = fakeClient({ user: null });
+    vi.mocked(supabaseServer.createClient).mockResolvedValue(clientMock);
 
-    const element = await Page();
+    const element = await Page({ params: { locale: "en" } });
     render(element);
 
     expect(await screen.findByRole("link", { name: /sign in/i })).toBeInTheDocument();
@@ -34,12 +30,10 @@ describe("Page", () => {
       user_metadata: { username: "John" },
     };
 
-    vi.mocked(clientMock.auth.getUser).mockResolvedValue({
-      data: { user: user as User },
-      error: null,
-    });
+    const clientMock = fakeClient({ user: user as User });
+    vi.mocked(supabaseServer.createClient).mockResolvedValue(clientMock);
 
-    const element = await Page();
+    const element = await Page({ params: { locale: "en" } });
     render(element);
 
     expect(screen.getByRole("link", { name: /REST Client/i })).toBeInTheDocument();
@@ -47,3 +41,6 @@ describe("Page", () => {
     expect(screen.getByRole("link", { name: /Variables/i })).toBeInTheDocument();
   });
 });
+
+
+
