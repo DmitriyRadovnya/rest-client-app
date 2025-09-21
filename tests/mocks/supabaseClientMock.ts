@@ -25,4 +25,3 @@ export const fakeClient = (options?: {
     },
   } as unknown as SupabaseClient;
 };
-

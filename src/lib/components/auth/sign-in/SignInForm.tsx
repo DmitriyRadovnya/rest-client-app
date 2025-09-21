@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Box, TextField, Button, Typography, Alert, CircularProgress } from '@mui/material'
 import { useForm } from 'react-hook-form'
@@ -7,9 +7,9 @@ import { login } from '@/app/[locale]/signin/actions'
 import { useTranslations } from 'next-intl'
 
 type LoginValues = {
-  email: string
-  password: string
-}
+  email: string;
+  password: string;
+};
 
 export const SignInForm = () => {
   const t = useTranslations('SignInForm');
@@ -17,11 +17,11 @@ export const SignInForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const onSubmit = async (data: LoginValues) => {
-    const res = await login(data)
+    const res = await login(data);
     if (res?.error) {
-      setErrorMessage(res.error)
+      setErrorMessage(res.error);
     }
-  }
+  };
 
   return (
     <Box
@@ -66,10 +66,12 @@ export const SignInForm = () => {
         variant="contained"
         fullWidth
         disabled={formState.isSubmitting}
-        startIcon={formState.isSubmitting ? <CircularProgress size={20} /> : null}
+        startIcon={
+          formState.isSubmitting ? <CircularProgress size={20} /> : null
+        }
       >
         {formState.isSubmitting ? t('signingIn') : t('signin')}
       </Button>
     </Box>
-  )
-}
+  );
+};

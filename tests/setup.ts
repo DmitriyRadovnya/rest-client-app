@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 import React from "react";
 import { vi } from "vitest";
 
-vi.mock("@/lib/providers/supabase/server");
+vi.mock('@/lib/providers/supabase/server');
 
 vi.mock("next/navigation", () => ({
   useRouter: () => ({

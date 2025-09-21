@@ -8,4 +8,4 @@ export const HeaderServer = async () => {
   const user = data.user as User | null;
 
   return <HeaderClient initialUser={user} />;
-}
+};

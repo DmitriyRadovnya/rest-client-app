@@ -39,9 +39,7 @@ describe('CodeTab', () => {
       </Wrapper>
     );
 
-    expect(
-      screen.getByLabelText(/Language \/ Variant/i)
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/Language \/ Variant/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Code/i)).toBeInTheDocument();
   });
 
@@ -94,9 +92,7 @@ describe('CodeTab', () => {
     const snippetField = screen.getByLabelText(/Code/i) as HTMLTextAreaElement;
 
     await waitFor(() =>
-      expect(snippetField.value).toContain(
-        '// Codegen error: Network error'
-      )
+      expect(snippetField.value).toContain('// Codegen error: Network error')
     );
   });
 });

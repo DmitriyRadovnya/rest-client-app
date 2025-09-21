@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/providers/supabase/server";
-import { Box } from "@mui/material";
-import { SignUpForm } from "@/lib/components/auth/sign-up/SignUpForm";
+import { redirect } from 'next/navigation';
+import { createClient } from '@/lib/providers/supabase/server';
+import { Box } from '@mui/material';
+import { SignUpForm } from '@/lib/components/auth/sign-up/SignUpForm';
 
 const SignUpPage = async () => {
   const supabase = await createClient();
@@ -10,21 +10,21 @@ const SignUpPage = async () => {
   } = await supabase.auth.getUser();
 
   if (user) {
-    redirect("/");
+    redirect('/');
   }
 
   return (
-      <Box
+    <Box
       sx={{
-        minHeight: "calc(100vh - 64px - 64px)",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        minHeight: 'calc(100vh - 64px - 64px)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <SignUpForm />
     </Box>
   );
-}
+};
 
 export default SignUpPage;

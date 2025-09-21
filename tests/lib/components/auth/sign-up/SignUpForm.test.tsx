@@ -87,5 +87,3 @@ describe("SignUpForm", () => {
     expect(await screen.findByText(/user already exists/i)).toBeInTheDocument();
   });
 });
-
-

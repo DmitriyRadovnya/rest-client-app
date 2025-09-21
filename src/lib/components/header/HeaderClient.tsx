@@ -56,7 +56,11 @@ export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
             variant="h6"
             component={Link}
             href="/"
-            sx={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}
+            sx={{
+              textDecoration: 'none',
+              color: 'inherit',
+              fontWeight: 'bold',
+            }}
           >
             REST Client
           </Typography>
@@ -82,5 +86,3 @@ export const HeaderClient = ({ initialUser }: { initialUser: User | null }) => {
     </AppBar>
   );
 };
-
-

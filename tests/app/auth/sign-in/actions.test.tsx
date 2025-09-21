@@ -65,7 +65,7 @@ describe("login action", () => {
       new Map([["referer", "http://localhost/ru/profile"]])
     );
 
-    await login({ email: "user@mail.com", password: "secret" });
+    await login({ email: 'user@mail.com', password: 'secret' });
 
     expect(revalidatePath).toHaveBeenCalledWith("/ru", "layout");
     expect(redirect).toHaveBeenCalledWith("/ru");

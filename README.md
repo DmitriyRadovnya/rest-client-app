@@ -31,11 +31,13 @@ Vitest + RTL — testing framework
 ## ⚙️ Installation & Setup
 
 ### 1. Install dependencies
+
 npm install
 
 ### 2. Run the dev server
+
 npm run dev
 
 ### 3. Run tests
-npm run test
 
+npm run test

@@ -36,4 +36,3 @@ export const login = async (values: LoginValues): Promise<LoginResult> => {
   redirect(`/${locale}`);
 };
 
-

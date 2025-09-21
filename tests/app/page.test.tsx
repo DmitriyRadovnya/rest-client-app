@@ -19,15 +19,19 @@ describe("Page", () => {
     const element = await Page({ params: { locale: "en" } });
     render(element);
 
-    expect(await screen.findByRole("link", { name: /sign in/i })).toBeInTheDocument();
-    expect(await screen.findByRole("link", { name: /sign up/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('link', { name: /sign in/i })
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole('link', { name: /sign up/i })
+    ).toBeInTheDocument();
   });
 
-  it("render Welcome and links for logged-in user", async () => {
+  it('render Welcome and links for logged-in user', async () => {
     const user: Partial<User> = {
-      id: "123",
-      email: "john@example.com",
-      user_metadata: { username: "John" },
+      id: '123',
+      email: 'john@example.com',
+      user_metadata: { username: 'John' },
     };
 
     const clientMock = fakeClient({ user: user as User });
@@ -36,9 +40,13 @@ describe("Page", () => {
     const element = await Page({ params: { locale: "en" } });
     render(element);
 
-    expect(screen.getByRole("link", { name: /REST Client/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /History/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Variables/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /REST Client/i })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /History/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: /Variables/i })
+    ).toBeInTheDocument();
   });
 });
 

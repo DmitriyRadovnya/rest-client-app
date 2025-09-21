@@ -5,17 +5,14 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tsconfigPaths()
-  ],
+  plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   test: {
-    include: ["tests/**/*.{test,spec}.{ts,tsx}"],
+    include: ['tests/**/*.{test,spec}.{ts,tsx}'],
     globals: true,
     environment: "jsdom",
     setupFiles: "./tests/setup.ts",
@@ -24,10 +21,10 @@ export default defineConfig({
       "next/navigation": "next/navigation.js",
     },
     coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
       exclude: [
-         '**/layout.tsx',
+        '**/layout.tsx',
         '**/theme.ts',
         '**/route.ts',
         '**/node_modules/**',

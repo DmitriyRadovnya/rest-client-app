@@ -4,26 +4,35 @@ import { mockSupabaseClient } from "tests/mocks/supabaseMock";
 import { redirect } from "next/navigation";
 import SignUpPage from "@/app/[locale]/signup/page";
 
-vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
 
-describe("SignUp page", () => {
+vi.mock('next/navigation', () => ({ redirect: vi.fn() }));
+
+describe('SignUp page', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    mockSupabaseClient.auth.getUser.mockResolvedValue({ data: { user: null }, error: null });
+    mockSupabaseClient.auth.getUser.mockResolvedValue({
+      data: { user: null },
+      error: null,
+    });
   });
 
-  it("render SignUpForm if user is not logged in", async () => {
+  it('render SignUpForm if user is not logged in', async () => {
     const element = await SignUpPage();
     render(element);
 
-    expect(await screen.findByRole("button", { name: /sign up/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('button', { name: /sign up/i })
+    ).toBeInTheDocument();
   });
 
   it("redirect to '/' if user is logged in", async () => {
-    mockSupabaseClient.auth.getUser.mockResolvedValueOnce({ data: { user: { id: "123" } }, error: null });
+    mockSupabaseClient.auth.getUser.mockResolvedValueOnce({
+      data: { user: { id: '123' } },
+      error: null,
+    });
 
     await SignUpPage();
 
-    expect(redirect).toHaveBeenCalledWith("/");
+    expect(redirect).toHaveBeenCalledWith('/');
   });
 });

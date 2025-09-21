@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Box, TextField, Button, Typography, Alert } from '@mui/material'
 import { useForm, SubmitHandler } from 'react-hook-form'
@@ -19,15 +19,15 @@ export const SignUpForm = () => {
   } = useForm<SignUpValues>({
     resolver: yupResolver(signUpSchema),
     mode: 'onBlur',
-  })
+  });
 
   const onSubmit: SubmitHandler<SignUpValues> = async (data) => {
-    setErrorMessage(null)
-    const res = await signup(data)
+    setErrorMessage(null);
+    const res = await signup(data);
     if (res?.error) {
-      setErrorMessage(res.error)
+      setErrorMessage(res.error);
     }
-  }
+  };
 
   return (
     <Box
@@ -48,9 +48,7 @@ export const SignUpForm = () => {
         {t('title')}
       </Typography>
 
-      {errorMessage && (
-        <Alert severity="error">{errorMessage}</Alert>
-      )}
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
       <TextField
         {...register('username')}
@@ -91,5 +89,5 @@ export const SignUpForm = () => {
         {t('signup')}
       </Button>
     </Box>
-  )
-}
+  );
+};
