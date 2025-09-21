@@ -1,0 +1,66 @@
+{
+  "HomePage": {
+    "title-anon": "Добро пожаловать!",
+    "title-auth": "С возвращением",
+    "signin": "Войти",
+    "signup": "Регистрация",
+    "rest": "REST-клиент",
+    "history": "История",
+    "variables": "Переменные"
+  },
+  "Header": {
+    "signin": "Войти",
+    "signup": "Регистрация"
+  },
+  "SignOut": {
+    "signout": "Выйти"
+  },
+  "SignInForm": {
+    "title": "Войти",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "signin": "Войти",
+    "signingIn": "Входим..."
+  },
+  "SignUpForm": {
+    "title": "Регистрация",
+    "name": "Имя пользовалеля",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "signup": "Регистрация"
+  },
+  "RequestForm": {
+    "method": "Метод",
+    "invalidUrl": "Введите корректный URL",
+    "enterUrl": "Введите URL",
+    "send": "Отправить"
+  },
+  "BodyEditor": {
+    "json": "JSON",
+    "text": "Текст",
+    "prettify": "Форматировать",
+    "minify": "Минифицировать",
+    "invalidJson": "Введите корректный JSON"
+  },
+  "CodeTab": {
+    "languageVariant": "Язык / Вариант",
+    "code": "Код"
+  },
+  "RequestTabs": {
+    "headers": "Заголовки",
+    "body": "Тело",
+    "code": "Код"
+  },
+  "Response": {
+    "firstRequest": "Отправьте свой первый запрос",
+    "error": "Ошибка: {message}"
+  },
+  "HeadersTab": {
+    "addHeader": "Добавить заголовок"
+  },
+  "NotFound": {
+    "title": "Страница не найдена",
+    "description": "Извините, но запрашиваемая вами страница не существует. Возможно, вы ввели неверный адрес или страница была удалена.",
+    "backHome": "Вернуться на главную"
+  }
+}
