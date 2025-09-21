@@ -18,14 +18,15 @@ describe('SignInForm', () => {
   it('render the form correctly', async () => {
     render(<SignInForm />);
 
-    screen.getByRole('heading', { name: /sign in/i })
+    screen.getByRole('heading', { name: /sign in/i });
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /sign in/i })
+    ).toBeInTheDocument();
   });
 
   it('call login successfully without showing an error', async () => {
-
     mockLogin.mockResolvedValueOnce(undefined);
 
     render(<SignInForm />);
@@ -55,6 +56,8 @@ describe('SignInForm', () => {
     await user.type(screen.getByLabelText(/password/i), 'wrongpass');
     await user.click(screen.getByRole('button', { name: /sign in/i }));
 
-    expect(await screen.findByRole('alert')).toHaveTextContent('Invalid credentials');
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Invalid credentials'
+    );
   });
 });

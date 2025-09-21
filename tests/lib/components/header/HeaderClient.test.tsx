@@ -29,7 +29,10 @@ describe('HeaderClient', () => {
 
     mockedSupabase = {
       auth: {
-        getUser: vi.fn().mockResolvedValue({ data: { user: null } as { user: User | null }, error: null }),
+        getUser: vi.fn().mockResolvedValue({
+          data: { user: null } as { user: User | null },
+          error: null,
+        }),
         onAuthStateChange: vi.fn().mockReturnValue({
           data: { subscription: { unsubscribe: vi.fn() } },
         }),
@@ -37,28 +40,50 @@ describe('HeaderClient', () => {
       },
     } as unknown as ReturnType<typeof createClient>;
 
-    mockedRouter = { push: vi.fn(), refresh: vi.fn() } as unknown as ReturnType<typeof useRouter>;
+    mockedRouter = { push: vi.fn(), refresh: vi.fn() } as unknown as ReturnType<
+      typeof useRouter
+    >;
 
-    (createClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(mockedSupabase);
-    (useRouter as unknown as ReturnType<typeof vi.fn>).mockReturnValue(mockedRouter);
+    (createClient as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+      mockedSupabase
+    );
+    (useRouter as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+      mockedRouter
+    );
   });
 
   it('render Sign In / Sign Up for guest', async () => {
     render(<HeaderClient initialUser={null} />);
-    expect(await screen.findByRole('link', { name: /sign in/i })).toBeInTheDocument();
-    expect(await screen.findByRole('link', { name: /sign up/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('link', { name: /sign in/i })
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole('link', { name: /sign up/i })
+    ).toBeInTheDocument();
   });
 
   it('render SignOutButton for logged-in user', async () => {
-    const user: User = { id: '1', email: 'john@example.com', user_metadata: { username: 'John' } } as unknown as User;
-    mockedSupabase.auth.getUser = vi.fn().mockResolvedValue({ data: { user }, error: null });
+    const user: User = {
+      id: '1',
+      email: 'john@example.com',
+      user_metadata: { username: 'John' },
+    } as unknown as User;
+    mockedSupabase.auth.getUser = vi
+      .fn()
+      .mockResolvedValue({ data: { user }, error: null });
     render(<HeaderClient initialUser={user} />);
     expect(await screen.findByText(/sign out/i)).toBeInTheDocument();
   });
 
   it('call router.push and refresh on sign out', async () => {
-    const user: User = { id: '1', email: 'john@example.com', user_metadata: { username: 'John' } } as unknown as User;
-    mockedSupabase.auth.getUser = vi.fn().mockResolvedValue({ data: { user }, error: null });
+    const user: User = {
+      id: '1',
+      email: 'john@example.com',
+      user_metadata: { username: 'John' },
+    } as unknown as User;
+    mockedSupabase.auth.getUser = vi
+      .fn()
+      .mockResolvedValue({ data: { user }, error: null });
     render(<HeaderClient initialUser={user} />);
 
     const button = await screen.findByText(/sign out/i);

@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { Box, TextField, Button, Typography, Alert } from '@mui/material'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { signup } from '@/app/signup/actions'
-import { signUpSchema, SignUpValues } from '@/lib/validation/auth.schema'
-import { useState } from 'react'
+import { Box, TextField, Button, Typography, Alert } from '@mui/material';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signup } from '@/app/signup/actions';
+import { signUpSchema, SignUpValues } from '@/lib/validation/auth.schema';
+import { useState } from 'react';
 
 export const SignUpForm = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -17,15 +17,15 @@ export const SignUpForm = () => {
   } = useForm<SignUpValues>({
     resolver: yupResolver(signUpSchema),
     mode: 'onBlur',
-  })
+  });
 
   const onSubmit: SubmitHandler<SignUpValues> = async (data) => {
-    setErrorMessage(null)
-    const res = await signup(data)
+    setErrorMessage(null);
+    const res = await signup(data);
     if (res?.error) {
-      setErrorMessage(res.error)
+      setErrorMessage(res.error);
     }
-  }
+  };
 
   return (
     <Box
@@ -46,9 +46,7 @@ export const SignUpForm = () => {
         Sign Up
       </Typography>
 
-      {errorMessage && (
-        <Alert severity="error">{errorMessage}</Alert>
-      )}
+      {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
       <TextField
         {...register('username')}
@@ -89,5 +87,5 @@ export const SignUpForm = () => {
         Sign Up
       </Button>
     </Box>
-  )
-}
+  );
+};

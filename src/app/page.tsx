@@ -1,6 +1,6 @@
-import { createClient } from "@/lib/providers/supabase/server";
-import { Container, Typography, Box, Button } from "@mui/material";
-import Link from "next/link";
+import { createClient } from '@/lib/providers/supabase/server';
+import { Container, Typography, Box, Button } from '@mui/material';
+import Link from 'next/link';
 
 const Page = async () => {
   const supabase = await createClient();
@@ -13,11 +13,11 @@ const Page = async () => {
       maxWidth="md"
       sx={{
         flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "calc(100vh - 64px - 64px)",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: 'calc(100vh - 64px - 64px)',
       }}
     >
       {!user ? (

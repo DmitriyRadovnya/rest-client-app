@@ -6,57 +6,57 @@ import { checkContentType } from '@/lib/utils/checkContentType';
 import BodyTab from '@/lib/components/rest-client/request/request-tabs/body-tab/BodyTab';
 
 vi.mock('@/lib/utils/checkContentType', () => ({
-    checkContentType: vi.fn((headers) => headers),
+  checkContentType: vi.fn((headers) => headers),
 }));
 
 vi.mock('@/lib/utils/isJSON', () => ({
-    isJSON: vi.fn((value) => {
-        try {
-            JSON.parse(value);
-            return true;
-        } catch {
-            return false;
-        }
-    }),
+  isJSON: vi.fn((value) => {
+    try {
+      JSON.parse(value);
+      return true;
+    } catch {
+      return false;
+    }
+  }),
 }));
 
 describe('BodyTab', () => {
-    const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-        const methods = useForm({
-            defaultValues: {
-                body: '',
-                bodyMode: 'json',
-                headers: [],
-            },
-        });
-        return <FormProvider {...methods}>{children}</FormProvider>;
-    };
-
-    it('render JSON/Text toggle and buttons', () => {
-        render(
-            <Wrapper>
-                <BodyTab />
-            </Wrapper>
-        );
-
-        expect(screen.getByRole('button', { name: 'JSON' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Text' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: 'Prettify' })).toBeDisabled();
-        expect(screen.getByRole('button', { name: 'Minify' })).toBeDisabled();
+  const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const methods = useForm({
+      defaultValues: {
+        body: '',
+        bodyMode: 'json',
+        headers: [],
+      },
     });
+    return <FormProvider {...methods}>{children}</FormProvider>;
+  };
 
-    it('call checkContentType when switching to JSON mode', async () => {
-        render(
-            <Wrapper>
-                <BodyTab />
-            </Wrapper>
-        );
+  it('render JSON/Text toggle and buttons', () => {
+    render(
+      <Wrapper>
+        <BodyTab />
+      </Wrapper>
+    );
 
-        const toggleText = screen.getByRole('button', { name: 'Text' });
-        await userEvent.click(toggleText);
-        const toggleJson = screen.getByRole('button', { name: 'JSON' });
-        await userEvent.click(toggleJson);
+    expect(screen.getByRole('button', { name: 'JSON' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Text' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Prettify' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Minify' })).toBeDisabled();
+  });
 
-        expect(checkContentType).toHaveBeenCalled();
-    });
+  it('call checkContentType when switching to JSON mode', async () => {
+    render(
+      <Wrapper>
+        <BodyTab />
+      </Wrapper>
+    );
+
+    const toggleText = screen.getByRole('button', { name: 'Text' });
+    await userEvent.click(toggleText);
+    const toggleJson = screen.getByRole('button', { name: 'JSON' });
+    await userEvent.click(toggleJson);
+
+    expect(checkContentType).toHaveBeenCalled();
+  });
 });

@@ -10,20 +10,22 @@ export const updateSession = async (request: NextRequest) => {
     {
       cookies: {
         getAll() {
-          return request.cookies.getAll()
+          return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
           supabaseResponse = NextResponse.next({
             request,
-          })
+          });
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
-          )
+          );
         },
       },
     }
-  )
+  );
 
   const {
     data: { user },
@@ -31,8 +33,10 @@ export const updateSession = async (request: NextRequest) => {
 
   const pathname = request.nextUrl.pathname;
 
-  const isAuthPage = pathname.startsWith('/signin') || pathname.startsWith('/signup');
-  const isProtectedPage = pathname.startsWith('/rest-client') || pathname.startsWith('/history');
+  const isAuthPage =
+    pathname.startsWith('/signin') || pathname.startsWith('/signup');
+  const isProtectedPage =
+    pathname.startsWith('/rest-client') || pathname.startsWith('/history');
 
   if (!user && isProtectedPage) {
     return NextResponse.redirect(new URL('/', request.url));
@@ -42,8 +46,8 @@ export const updateSession = async (request: NextRequest) => {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  return supabaseResponse
-}
+  return supabaseResponse;
+};
 
 export const config = {
   matcher: ['/signin', '/signup', '/rest-client/:path*', '/history/:path*'],

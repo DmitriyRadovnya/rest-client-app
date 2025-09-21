@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 
-const passwordRegex =
-  /^(?=.*\p{L})(?=.*\d)(?=.*[^\p{L}\d\s]).{8,}$/u;
+const passwordRegex = /^(?=.*\p{L})(?=.*\d)(?=.*[^\p{L}\d\s]).{8,}$/u;
 
 export const signUpSchema = yup.object({
   email: yup
