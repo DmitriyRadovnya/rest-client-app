@@ -29,12 +29,12 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <CssBaseline />
-            <MuiProvider>
-              <HeaderServer />
-              <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                {children}
-              </main>
-            </MuiProvider>
+          <MuiProvider>
+            <HeaderServer />
+            <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              {children}
+            </main>
+          </MuiProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

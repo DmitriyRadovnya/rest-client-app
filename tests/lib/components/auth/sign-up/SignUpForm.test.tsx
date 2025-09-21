@@ -25,7 +25,9 @@ describe('SignUpForm', () => {
     expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /sign up/i })
+    ).toBeInTheDocument();
   });
 
   it('show validation errors on empty submit', async () => {
@@ -58,7 +60,9 @@ describe('SignUpForm', () => {
   });
 
   it('display error message if signup returns error', async () => {
-    (signup as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({ error: 'User already exists' });
+    (signup as unknown as ReturnType<typeof vi.fn>).mockResolvedValue({
+      error: 'User already exists',
+    });
     const { user } = setup();
 
     await user.type(screen.getByLabelText(/username/i), 'testuser');

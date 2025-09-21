@@ -16,12 +16,22 @@ import { UserRequest } from '@/lib/components/rest-client/request/request.types'
 import { Controller, SubmitHandler, useFormContext } from 'react-hook-form';
 import { MethodType } from '@/lib/static/http/methods.types';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { convertHeaders } from '@/lib/utils/convertHeaders';
 import { resolveUrl } from '@/lib/utils/resolveUrl';
+import { getErrorMessage } from '@/lib/utils/getErrorMessage';
+import { ApiResponseData } from '../../RestClientContainer';
 
-const RequestForm = () => {
+interface RequestFormProps {
+  onSuccess: (data: ApiResponseData) => void;
+  onError: (err: string) => void;
+}
+
+const RequestForm: React.FC<RequestFormProps> = ({ onSuccess, onError }) => {
   const { control, handleSubmit } = useFormContext<UserRequest>();
   const [open, setOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const methodHasBody = (m: MethodType) => m !== 'GET';
 
   const handleClose = (
@@ -36,7 +46,6 @@ const RequestForm = () => {
 
   const onSubmit: SubmitHandler<UserRequest> = async (req) => {
     const headers = convertHeaders(req.headers);
-
     const hasContentType = [...headers.keys()].some(
       (k) => k.toLowerCase() === 'content-type'
     );
@@ -58,9 +67,31 @@ const RequestForm = () => {
         headers,
         body,
       });
-    } catch (e) {
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
+      }
+
+      const parsedHeaders = Object.fromEntries(res.headers.entries());
+      const contentType = res.headers.get('content-type');
+      let parsedBody;
+      if (contentType?.includes('application/json')) {
+        parsedBody = await res.json();
+      } else {
+        parsedBody = await res.text();
+      }
+
+      onSuccess({
+        status: res.status,
+        statusText: res.statusText,
+        headers: parsedHeaders,
+        body: parsedBody,
+      });
+    } catch (e: unknown) {
+      const errMsg = getErrorMessage(e);
+      setErrorMessage(errMsg);
       setOpen(true);
-      console.error(e);
+      onError(errMsg);
     }
   };
 
@@ -72,12 +103,11 @@ const RequestForm = () => {
       gap={2}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="message should be here"
-      />
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {errorMessage}
+        </Alert>
+      </Snackbar>
       <Box display="flex" alignItems="start" gap={2}>
         <FormControl>
           <InputLabel id="method-select-label">Method</InputLabel>

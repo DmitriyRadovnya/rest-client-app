@@ -5,40 +5,37 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tsconfigPaths()
-  ],
+  plugins: [react(), tsconfigPaths()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
+      '@': path.resolve(__dirname, 'src'),
+    },
   },
   test: {
-    include: ["tests/**/*.{test,spec}.{ts,tsx}"],
+    include: ['tests/**/*.{test,spec}.{ts,tsx}'],
     globals: true,
-    environment: "jsdom",
-    setupFiles: "./tests/setup.ts",
+    environment: 'jsdom',
+    setupFiles: './tests/setup.ts',
     coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
       exclude: [
-         '**/layout.tsx',
+        '**/layout.tsx',
         '**/theme.ts',
         '**/route.ts',
         '**/node_modules/**',
         '**/tests/**',
         '**/.next/**',
         '**/%5Bturbopack%5D_runtime.js',
-        "eslint.config.mjs",
-        "**/*.d.ts",
-        "next-env.d.ts",
-        "next.config.ts",
-        "vitest.config.mts",
-        "middleware.ts",
-        "src/lib/providers/**",
-        "src/lib/static/**",
-        "src/lib/utils/**",
+        'eslint.config.mjs',
+        '**/*.d.ts',
+        'next-env.d.ts',
+        'next.config.ts',
+        'vitest.config.mts',
+        'middleware.ts',
+        'src/lib/providers/**',
+        'src/lib/static/**',
+        'src/lib/utils/**',
       ],
       thresholds: {
         lines: 80,
